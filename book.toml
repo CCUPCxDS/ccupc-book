@@ -3,3 +3,18 @@ authors = ["D1stance"]
 language = "zh-TW"
 src = "src"
 title = "CCUPC Book"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/CCUPCxDS/ccupc-book"
+no-section-label = true
+
+[output.html.print]
+enable = false
+
+[output.html.fold]
+enable = true

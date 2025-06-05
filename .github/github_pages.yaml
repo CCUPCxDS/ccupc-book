@@ -1,0 +1,36 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Set up Cargo
+        uses: actions/setup-rust@v1
+        with:
+          profile: minimal
+          toolchain: stable
+      - name: Install dependencies
+        run: cargo install mdbook
+      - name: Build book
+        run: mdbook build
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
+        with:
+          publish_dir: book
+          destination_branch: gh-pages
+          commit_message: 'Deploy book to GitHub Pages'
