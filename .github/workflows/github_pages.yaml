@@ -33,7 +33,7 @@ jobs:
       - name: Generate sitemap
         run: |
           cd book
-          npx sscli --no-clean --base https://CCUPCxDS.github.io/ccupc-book
+          npx sscli --no-clean --base https://ccupc-book.csie.io
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
