@@ -17,18 +17,26 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     steps:
-      - name: Set up Cargo
-        uses: moonrepo/setup-rust@v1
-        run: cargo test
-      - name: Install dependencies
-        run: cargo install mdbook
-      - name: Build book
-        run: mdbook build
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+      - uses: actions/checkout@v3
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
         with:
-          publish_dir: book
-          destination_branch: gh-pages
-          commit_message: 'Deploy book to GitHub Pages'
+          mdbook-version: '0.4.51'
+
+      - run: mdbook build
+
+      - name: Install static-sitemap-cli
+        run: npm install static-sitemap-cli
+
+      - name: Generate sitemap
+        run: |
+          cd book
+          npx sscli --no-clean --base https://CCUPCxDS.github.io/ccupc-book
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.ref == 'refs/heads/main' }}
+        with:
+          publish_dir: ./book
