@@ -20,10 +20,8 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Set up Cargo
-        uses: actions/setup-rust@v1
-        with:
-          profile: minimal
-          toolchain: stable
+        uses: moonrepo/setup-rust@v1
+        run: cargo test
       - name: Install dependencies
         run: cargo install mdbook
       - name: Build book
