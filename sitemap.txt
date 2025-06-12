@@ -1,4 +1,5 @@
 https://ccupc-book.csie.io/index.html
 https://ccupc-book.csie.io/thanks.html
 https://ccupc-book.csie.io/courses/intro.html
+https://ccupc-book.csie.io/courses/loop-and-array.html
 https://ccupc-book.csie.io/courses/syntax.html

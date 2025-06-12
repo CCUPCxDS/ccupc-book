@@ -1,0 +1,576 @@
+<!DOCTYPE HTML>
+<html lang="zh-TW" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>陣列與迴圈 - CCUPC Book</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="../highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="../tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">CCUPC Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/CCUPCxDS/ccupc-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="迴圈與陣列"><a class="header" href="#迴圈與陣列">迴圈與陣列</a></h1>
+<blockquote>
+<p>作者: <strong>D1stance</strong></p>
+</blockquote>
+<h2 id="迴圈"><a class="header" href="#迴圈">迴圈</a></h2>
+<p>如果喜歡的人跟你說，如果你對她說 100 次「我愛你」，她就會嫁給你，
+你會怎麼做？</p>
+<p>第一個想法是，打好一次「我愛你」的字串，然後複製貼上 100 次，
+這樣有點慢，於是聰明的你想到可以打一個字串後，複製貼上，接著複製全部的字串，
+然後再貼上，這樣每次行數就會翻倍，只要 \(\log_2(100)\) 次就可以完成。</p>
+<p>聽起來好像沒有很麻煩？那如果今天你是通識課的助教，總共有 100 位學生修了這堂課，你要幫他們進行學期成績的計算，總共有 20 個分項需要加權計算，
+如果有同學作業全繳，但總成績離及格線不超過 5 分，教授可以把他們撈起來，
+你會怎麼做？</p>
+<p>除了重複的計算動作之外，還需要處理條件判斷，這時你就想到了使用程式來協助你，
+條件判斷上一個章節已經有介紹過了，
+這一個章節我們要介紹的是迴圈，讓你可以重複執行某些動作。</p>
+<p>迴圈是一段在程式碼中出現一次，但是可能會被執行多次的程式碼，
+用來處理重複的計算或動作。</p>
+<h3 id="while-迴圈"><a class="header" href="#while-迴圈">While 迴圈</a></h3>
+<p>當條件達成，就會執行迴圈內的程式碼，直到條件不再成立為止。</p>
+<pre><code class="language-cpp">while(條件)
+{
+    // 迴圈內的程式碼
+}
+</code></pre>
+<p>例如，如果我們要印出「我愛你」 很多次，可以這樣寫：</p>
+<pre><code class="language-cpp">while(true)
+    cout &lt;&lt; "我愛你\n"; // 印出「我愛你」
+</code></pre>
+<p>這樣每次迴圈印出「我愛你」，直到程式被強制終止。</p>
+<p>如何中止迴圈呢？ 你可以按鍵盤上的 Ctrl + C，
+這會強制終止程式的執行。</p>
+<p>這樣我們要在剛好第 100 次時中止迴圈，
+這是一個很困難的任務，我們不想考驗自己的記憶力跟手速，
+迴圈應該有更好的用法。</p>
+<p>我們可以使用一個變數來計算已經執行了多少次迴圈，
+然後在每次迴圈結束時增加這個變數的值，
+這樣就可以在第 100 次時中止迴圈。</p>
+<pre><code class="language-cpp">int count = 0; // 計數器
+while(count &lt; 100) // 當計數器小於 100 時
+{
+    cout &lt;&lt; "我愛你\n"; // 印出「我愛你」
+    count = count + 1; // 計數器加 1
+}
+</code></pre>
+<p>這樣程式碼會在印出「我愛你」 100 次後自動結束，
+因為 100 不會小於 100。</p>
+<p>在這裡，<code>count</code> 是一個計數器，用來記錄迴圈執行的次數，</p>
+<p><code>count &lt; 100</code> 是我們的判斷式，當 <code>count</code> 小於 100 時，迴圈會繼續執行，</p>
+<p><code>count = count + 1</code> 是每次迴圈結束時，將計數器加 1，稱為調整式，
+每次迴圈執行時，計數器都會增加 1，
+直到 <code>count</code> 等於 100 時，迴圈結束。</p>
+<h4 id="self-assignment-and-increment"><a class="header" href="#self-assignment-and-increment">Self Assignment and Increment</a></h4>
+<p>你可能會注意到 <code>count = count + 1</code> 這行程式碼，
+這是將自己的值進行更新，稱為 <strong>Self Assignment</strong>，
+在 C++ 中，這種寫法是很常見的，
+但這樣寫有點冗長，我們可以使用更簡潔的寫法：</p>
+<pre><code class="language-cpp">count += 1; // 計數器加 1
+</code></pre>
+<p>這樣寫的效果跟 <code>count = count + 1</code> 一樣，但是更簡潔，
+當然，這個寫法不只適用於加 1，
+還可以用來加減乘除模等其他運算還有位元運算。</p>
+<p>而加一和減一是最常用的運算，
+所以 C++ 還提供了更簡潔的寫法：</p>
+<pre><code class="language-cpp">count++; // 計數器加 1
+</code></pre>
+<p>這樣寫的效果跟 <code>count += 1</code> 一樣，但是更簡潔，
+這種寫法稱為 <strong>Increment</strong>，用來增加變數的值。</p>
+<p>這種遞增遞減運算，有兩種情況，</p>
+<ul>
+<li><strong>前置遞增</strong>：<code>++count</code>，先增加再使用。</li>
+<li><strong>後置遞增</strong>：<code>count++</code>，先使用再增加。</li>
+</ul>
+<p>前置遞增和後置遞增的差別在於，前置遞增會先增加變數的值，
+而後置遞增會先使用變數的值，再增加變數的值，
+我們可以用一個簡單的例子來說明：</p>
+<pre><code class="language-cpp">int count = 0;
+cout &lt;&lt; ++count &lt;&lt; '\n'; // 前置遞增，輸出 1
+cout &lt;&lt; count++ &lt;&lt; '\n'; // 後置遞增，輸出 1
+cout &lt;&lt; count &lt;&lt; '\n'; // 輸出 2
+</code></pre>
+<p>這裡的 <code>++count</code> 會先將 <code>count</code> 的值增加 1，然後輸出，</p>
+<p>而 <code>count++</code> 會先輸出 <code>count</code> 的值，然後再將 <code>count</code> 的值增加 1，</p>
+<p>所以最後輸出的 <code>count</code> 的值是 2。</p>
+<h3 id="do-while-迴圈"><a class="header" href="#do-while-迴圈">Do While 迴圈</a></h3>
+<p>跟 <code>while</code> 迴圈類似，但是會先執行一次迴圈內的程式碼，
+然後再判斷條件是否成立。</p>
+<pre><code class="language-cpp">do
+{
+    // 迴圈內的程式碼
+}while(條件);
+</code></pre>
+<h3 id="for-迴圈"><a class="header" href="#for-迴圈">For 迴圈</a></h3>
+<p>如果我們知道迴圈實際上需要執行多少次，
+其實我們可以使用 <code>for</code> 迴圈，
+<code>for</code> 迴圈的語法如下：</p>
+<pre><code class="language-cpp">for(初始式; 條件式; 調整式)
+{
+    // 迴圈內的程式碼
+}
+</code></pre>
+<p>對標到一開始的例子，
+初始式就是設計計數器 <code>count</code> 的初始值，
+條件式就是滿足該條件時才會執行迴圈內的程式碼，
+調整式就是每次迴圈結束時，計數器的更新方式。</p>
+<p>我們可以這樣寫一百次我愛你</p>
+<pre><code class="language-cpp">for(int count = 0; count &lt; 100; count++)
+{
+    cout &lt;&lt; "我愛你\n"; // 印出「我愛你」
+}
+</code></pre>
+<p>這樣寫的好處是，迴圈的初始值、條件和調整都在同一行，
+讓程式碼更簡潔易讀。</p>
+<p>那麼學生成績的計算呢？我們可以這樣寫：</p>
+<pre><code class="language-cpp">for(int i = 0; i &lt; 100; ++i)
+{
+    int s1, s2, s3 ..... s20; // 20 個分項
+    cin &gt;&gt; s1 &gt;&gt; s2 &gt;&gt; s3 .... &gt;&gt; s20; // 讀取分項成績
+    int total = s1 * 0.1 + s2 * 0.1 + s3 * 0.1 + ... + s20 * 0.1; // 計算總成績
+    int homework = (s1 != 0) + (s2 != 0) + (s3 != 0) + ... + (s5 != 0); // 計算作業繳交數量
+    if(total &gt;= 60)
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績及格，總成績：" &lt;&lt; total &lt;&lt; '\n';
+    else if(homework == 5 &amp;&amp; total &gt;= 55)
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績撈起來，總成績：" &lt;&lt; total &lt;&lt; '\n';
+    else
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績不及格，總成績：" &lt;&lt; total &lt;&lt; '\n';
+}
+</code></pre>
+<p>這樣就可以計算 100 位學生的成績了，
+但是這樣寫有一個問題，
+s1, s2, s3 ... s20 實在是太多變數了，我們需要一個工具來幫助我們儲存一整組的資料，這個工具就是陣列。</p>
+<h2 id="陣列"><a class="header" href="#陣列">陣列</a></h2>
+<p>陣列是一種資料結構，可以用來儲存一組相同類型的資料，
+例如我們要儲存 100 位學生的成績，
+我們可以使用陣列來儲存這些成績。</p>
+<p>我們可以這樣宣告一個陣列：</p>
+<pre><code class="language-cpp">int scores[100]; // 宣告一個大小為 100 的陣列
+</code></pre>
+<p>這樣的意思是，我們宣告了一個名為 <code>scores</code> 的陣列，
+型態為 <code>int</code>，大小為 100，程式會在記憶體中取一塊連續的空間來儲存這 100 個 <code>int</code> 型態的數值。</p>
+<h3 id="不同的宣告與初始化方式"><a class="header" href="#不同的宣告與初始化方式">不同的宣告與初始化方式</a></h3>
+<p>陣列可以有不同的初始化方式，以下是幾種常見的方式：</p>
+<pre><code class="language-cpp">int scores[100]; // 宣告一個大小為 100 的陣列，裡面是隨機的數值
+int scores[100] = {0}; // 宣告一個大小為 100 的陣列，並將所有元素初始化為 0
+int scores[] = {1, 2, 3, 4, 5}; // 宣告一個大小為 5 的陣列，並初始化為 {1, 2, 3, 4, 5}
+int scores[5] = {1, 2, 3, 4, 5}; // 跟上面一樣，但有指定大小
+int scores[5] = {1, 2, 3}; // 宣告一個大小為 5 的陣列，前 3 個元素初始化為 {1, 2, 3}，後面兩個元素為 0
+</code></pre>
+<p>陣列的大小在宣告時就已經確定了，不能在程式執行時改變，
+取值時可以使用索引來存取陣列中的元素，索引從 0 開始，
+例如：</p>
+<pre><code class="language-cpp">scores[0] = 90; // 將第一個元素設為 90
+scores[1] = 85; // 將第二個元素設為 85
+scores[2] = 80; // 將第三個元素設為 80
+</code></pre>
+<p>這樣就可以將陣列中的元素設為指定的值。</p>
+<p>我們也可以透過輸入來初始化陣列，例如：</p>
+<pre><code class="language-cpp">for(int i = 0; i &lt; 100; ++i)
+    cin &gt;&gt; scores[i]; // 讀取成績
+</code></pre>
+<p>這樣就可以讀取 100 位學生的成績，並將它們儲存在 <code>scores</code> 陣列中。</p>
+<p>剛才有 100 位學生，每位學生有 20 個分項成績，
+這時候我們需要二維陣列來儲存這些成績。</p>
+<p>如果宣告 <code>int array[2][10]</code>，代表陣列會如同下圖：</p>
+<p><img src="2d_array.png" alt="alt text" title="二維陣列" /></p>
+<p>也就是說，這個陣列有 2 個元素，每個元素都是一個大小為 10 的陣列，
+所以這個陣列的大小是 2 * 10 = 20。</p>
+<p>我們可以透過陣列的索引來存取二維陣列中的元素，
+完成我們的學生成績計算：</p>
+<pre><code class="language-cpp">int scores[100][20]; // 宣告一個大小為 100 x 20 的二維陣列
+for(int i = 0; i &lt; 100; ++i)
+{
+    for(int j = 0; j &lt; 20; ++j)
+        cin &gt;&gt; scores[i][j]; // 讀取每位學生的 20 個分項成績
+    int total = 0;
+    for(int j = 0; j &lt; 20; ++j)
+        total += scores[i][j] * 0.1; // 計算總成績
+    int homework = 0;
+    for(int j = 0; j &lt; 5; ++j)
+        homework += (scores[i][j] != 0); // 計算作業繳交數量
+    if(total &gt;= 60)
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績及格，總成績：" &lt;&lt; total &lt;&lt; '\n';
+    else if(homework == 5 &amp;&amp; total &gt;= 55)
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績撈起來，總成績：" &lt;&lt; total &lt;&lt; '\n';
+    else
+        cout &lt;&lt; "學生 " &lt;&lt; i + 1 &lt;&lt; " 成績不及格，總成績：" &lt;&lt; total &lt;&lt; '\n';
+}
+</code></pre>
+<p>這樣就可以計算 100 位學生的成績了，
+並且使用二維陣列來儲存每位學生的 20 個分項成績。</p>
+<h3 id="使用陣列常見的錯誤"><a class="header" href="#使用陣列常見的錯誤">使用陣列常見的錯誤</a></h3>
+<h4 id="1-陣列越界"><a class="header" href="#1-陣列越界">1. 陣列越界</a></h4>
+<p>陣列的索引從 0 開始，所以如果你宣告了一個大小為 100 的陣列，
+你可以存取的索引範圍是 0 到 99，
+如果你試圖存取索引 100 或更大的值，會導致陣列越界，
+可能會取到非預期的值，或者導致程式崩潰，造成 <strong>Runtime Error</strong>。</p>
+<h4 id="2-陣列未初始化"><a class="header" href="#2-陣列未初始化">2. 陣列未初始化</a></h4>
+<p>如果你宣告了一個陣列，但是沒有初始化它，
+陣列中的元素會是隨機的值，
+這可能會導致程式在使用陣列時出現錯誤，
+這樣會在每次執行程式碼時得到不同的結果，</p>
+<h4 id="3-陣列開太大"><a class="header" href="#3-陣列開太大">3. 陣列開太大</a></h4>
+<p>如同前面提到的，陣列是一段連續的記憶體空間，
+所以我們也沒辦法一次開一個宇宙大小的陣列，
+如果你宣告了一個過大的陣列，可能會導致 <strong>Memory Limit Exceeded</strong>，
+使用型態為 <code>int</code> 的陣列時，通常大小不會超過 \(10^7\)。</p>
+<h2 id="動態陣列-vector"><a class="header" href="#動態陣列-vector">動態陣列 Vector</a></h2>
+<p>在 C++ 中，陣列的大小是固定的，由於我們有可能不一定一開始就知道需要多大的陣列，
+所以 C++ 提供了一個動態陣列的資料結構，稱為 <code>vector</code>，
+<code>vector</code> 是一個可以動態調整大小的陣列，
+使用 <code>vector</code> 可以讓我們在程式執行時動態地增加或減少陣列的大小。</p>
+<p>使用 <code>vector</code> 的方式如下：</p>
+<pre><code class="language-cpp">#include &lt;vector&gt; // 引入 vector 標頭檔
+using namespace std;
+int main()
+{
+    vector&lt;int&gt; vt;
+    return 0;
+}
+</code></pre>
+<p><code>vector&lt;int&gt; vt;</code> 這行程式碼宣告了一個 <code>int</code> 型態的動態陣列 <code>vt</code>，</p>
+<p>我們可以使用 <code>push_back</code> 方法來增加元素，使用 <code>size</code> 方法來取得目前的大小。</p>
+<pre><code class="language-cpp">vt.push_back(1); // 將 1 加入到 vector 中
+vt.push_back(2); // 將 2 加入到 vector 中
+cout &lt;&lt; vt.size() &lt;&lt; '\n'; // 輸出 vector 的大小，應該是 2
+</code></pre>
+<p>當然，我們也可以一開始就指定 <code>vector</code> 的大小：</p>
+<pre><code class="language-cpp">vector&lt;int&gt; vt(100);
+// 宣告一個大小為 100 的 vector，內容為 0
+
+vector&lt;int&gt; vt(100, 10); 
+// 宣告一個大小為 100 的 vector，內容為 10
+</code></pre>
+<p>一樣可以透過索引來存取 <code>vector</code> 中的元素：</p>
+<pre><code class="language-cpp">vt[0] = 1; // 將第一個元素設為 1
+vt[1] = 2; // 將第二個元素設為 2
+cout &lt;&lt; vt[0] &lt;&lt; ' ' &lt;&lt; vt[1] &lt;&lt; '\n'; // 輸出 1 2
+</code></pre>
+<h3 id="其餘常用語法"><a class="header" href="#其餘常用語法">其餘常用語法</a></h3>
+<pre><code class="language-cpp">vt.empty(); // 判斷 vector 是否為空
+
+vt.pop_back(); // 移除 vector 中的最後一個元素
+
+vt.front(); // 取得 vector 中的第一個元素
+vt.back(); // 取得 vector 中的最後一個元素
+
+vt.clear(); // 清空 vector 中的所有元素
+
+vt.resize(50); // 將 vector 的大小調整為 50，如果原本的大小大於 50，則會移除多餘的元素，如果小於 50，則會新增元素並初始化為 0
+
+vt.assign(100, 10); // 將 vector 的大小調整為 100，並將所有元素初始化為 10
+</code></pre>
+<p>以上就是常見的語法，剩下的語法可以參考 <a href="https://en.cppreference.com/w/cpp/container/vector">C++ STL vector</a>。</p>
+<h3 id="二維-vector"><a class="header" href="#二維-vector">二維 Vector</a></h3>
+<p>如果我們需要儲存二維的資訊，我們可以把原本 <code>vector&lt;int&gt; vt</code> 的 <code>int</code> 改成 <code>vector&lt;int&gt;</code>，
+這樣在 vector 中放置的元素就可以是另一個 vector，
+這樣就可以實現二維 vector 的功能。</p>
+<pre><code class="language-cpp">vector&lt;int&gt; vt(100, 0); // 宣告一個大小為 100 的 vector，內容為 0
+vector&lt;vector&lt;int&gt;&gt; vt_2d(100, vt); // 宣告一個大小為 100 x 100 的二維 vector，內容為 0
+</code></pre>
+<h2 id="迴圈特殊語法以及-eof"><a class="header" href="#迴圈特殊語法以及-eof">迴圈特殊語法以及 EOF</a></h2>
+<p>最後來講講一些迴圈中的好用語法，<code>break</code> 和 <code>continue</code>。</p>
+<p><code>break</code> 可以用來跳出當前的迴圈，可以搭配 <code>if</code> 條件使用，
+例如：</p>
+<pre><code class="language-cpp">for(int i = 0; i &lt; 100; ++i)
+{
+    if(i == 50) // 當 i 等於 50 時
+        break; // 跳出迴圈
+    cout &lt;&lt; i &lt;&lt; ' '; // 印出 i 的值
+}
+</code></pre>
+<p>這樣程式碼會印出 0 到 49 的數字，當 i 等於 50 時，跳出迴圈。</p>
+<p><code>continue</code> 可以用來跳過當前的迴圈，繼續下一次迴圈，
+例如：</p>
+<pre><code class="language-cpp">for(int i = 0; i &lt; 100; ++i)
+{
+    if(i % 2 == 0) // 當 i 是偶數時
+        continue; // 跳過這次迴圈
+    cout &lt;&lt; i &lt;&lt; ' '; // 印出 i 的值
+}
+</code></pre>
+<p>這樣程式碼會印出 1、3、5、7 ... 99 的數字，當 i 是偶數時，跳過這次迴圈。
+這樣就可以在迴圈中使用 <code>break</code> 和 <code>continue</code> 來控制迴圈的執行。</p>
+<div class="warning">
+    <strong>注意：</strong>在使用 `break` 和 `continue` 時，要特別注意只會跳出或跳過當前的迴圈，
+    如果有多層迴圈，`break` 只會跳出當前的迴圈，而不會跳到全部的迴圈外面，
+    因此好好透過縮排來區分不同的迴圈層級是很重要的。
+</div>
+<h3 id="eof"><a class="header" href="#eof">EOF</a></h3>
+<p>有時候，我們需要處理不定長度的輸入，
+像是讀取若干行的數字，直到沒有更多的輸入為止，
+這時候我們可以使用 <code>EOF</code>（End of File）來判斷輸入是否結束。</p>
+<p>在 C++ 中，可以使用 <code>cin</code> 的輸入流來判斷是否到達 <code>EOF</code>，
+例如：</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main()
+{
+    vector&lt;int&gt; numbers; // 用來儲存輸入的數字
+    int num;
+    while(cin &gt;&gt; num) // 當有數字輸入時
+    {
+        numbers.push_back(num); // 將數字加入到 vector 中
+    }
+    
+    // 印出所有輸入的數字
+    for(int n : numbers)
+        cout &lt;&lt; n &lt;&lt; ' ';
+    
+    return 0;
+}
+</code></pre>
+<p>這段程式碼會持續讀取輸入的數字，直到沒有更多的輸入為止，
+然後將所有輸入的數字儲存在 <code>vector</code> 中，
+最後印出所有的數字。</p>
+<p>那我們可以在終端機中輸入數字，然後按下 Ctrl + D（Linux/Mac）或 Ctrl + Z（Windows）來結束輸入，
+這樣程式就會讀取到 <code>EOF</code>，並結束迴圈。</p>
+<h2 id="大量輸出入造成的問題"><a class="header" href="#大量輸出入造成的問題">大量輸出入造成的問題</a></h2>
+<p>在 C+++ 中，使用 <code>cin</code> 和 <code>cout</code> 進行大量輸入輸出時，
+可能會導致程式執行速度變慢，
+這是因為 <code>cin</code> 和 <code>cout</code> 是同步的，因為它想要達成使用者互動，
+所以每次輸入輸出都會進行同步操作，
+這會導致程式在處理大量輸入輸出時變得非常慢。</p>
+<p>因為競程比賽中，它通常只會比較最後的輸出結果，只有少數題型需要與題目互動，
+所以我們可以使用下列的程式碼來加速輸入輸出：</p>
+<pre><code class="language-cpp">ios::sync_with_stdio(false); // 關閉同步
+cin.tie(false); // 解除 cin 與 cout 的綁定
+</code></pre>
+<p>這樣就可以加速輸入輸出，讓程式在處理大量輸入輸出時變得更快，
+但是只有最後才會看到完整的輸出結果，
+如果你要除錯，可以先把這兩行註解掉，
+最後上傳到評測系統時再加上去。</p>
+<p>也可以使用 <code>cerr</code> 來輸出除錯資訊，
+但是 <code>cerr</code> 是不會被同步的，所以雖然不會影響輸出結果，
+但是還是會拖慢程式的執行速度。</p>
+<h2 id="小結"><a class="header" href="#小結">小結</a></h2>
+<p>在這一章中，我們介紹了迴圈和陣列的基本概念，
+迴圈可以用來重複執行某些動作，而陣列可以用來儲存一組相同類型的資料，
+我們學習了 <code>while</code>、<code>do while</code> 和 <code>for</code> 迴圈的用法，
+以及如何使用陣列來儲存資料，
+同時也學習了如何使用二維陣列來儲存多維資料。</p>
+<p>在 C++ 中，陣列的大小是固定的，
+如果需要動態大小的陣列，可以使用 <code>vector</code>，
+同時我們也學習了如何加速輸入輸出，
+這對於競程比賽來說是非常重要的。</p>
+<p>在下一章中，我們將介紹指標和字元字串，
+這是 C++ 中非常重要的概念，
+讓我們可以更靈活地操作資料，
+並且能夠更有效地使用記憶體。</p>
+<h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
+<ul>
+<li><a href="https://hackmd.io/@S3aGLqUtR_6u0dY0XwTY2w/SyGV-Ft60">113 學年度簡報 講師 東兔角</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../courses/syntax.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next prefetch" href="../thanks.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../courses/syntax.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next prefetch" href="../thanks.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>
