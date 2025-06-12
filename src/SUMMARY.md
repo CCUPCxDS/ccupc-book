@@ -6,7 +6,7 @@
 
 - [競賽入門](courses/intro.md)
 - [C++ 基礎語法](courses/syntax.md)
-- [陣列與迴圈]()
+- [陣列與迴圈](courses/loop-and-array.md)
 - [指標與字元字串]()
 - [副函式與遞迴應用]()
 - [時間複雜度、排序與二分搜尋法]()

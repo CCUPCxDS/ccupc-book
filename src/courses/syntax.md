@@ -27,10 +27,10 @@ type variable_name;
 
 int 跟 long long int 的差別在於儲存的數值範圍，
 `int` 通常可以儲存 -2,147,483,648 到 2,147,483,647 的整數，
-我們會用 正負 $2 \times 10^9$ 來表示這個範圍，
+我們會用 正負 \\(2 \times 10^9\\) 來表示這個範圍，
 
 而 `long long int` 則可以儲存更大的整數，範圍是 -9,223,372,036,854,775,808 到 9,223,372,036,854,775,807，
-我們會用 正負 $10^{18}$ 來表示這個範圍。
+我們會用 正負 \\(10^{18}\\) 來表示這個範圍。
 另外，如果 `int` 和 `long long int` 前面有 `unsigned`，則表示這個變數只能儲存非負整數，
 例如 `unsigned int` 可以儲存 0 到 4,294,967,295 的整數。
 
@@ -163,7 +163,7 @@ int main()
 ```
 這樣就可以得到 `3.333...` 的結果了。
 
->[!Warning] 注意
+>#### 注意
 > 這裡比較特別的是取模運算符 `%`，它的實現在部分語言中可能會有所不同，
 > 在 C++ 中，`a % b` 的結果是 `a` 除以 `b` 的餘數，
 > 例如 `10 % 3` 的結果是 `1`，因為 10 除以 3 的餘數是 1，
@@ -223,18 +223,18 @@ int main()
 這是電腦儲存資料的基本單位。
 例如，數字 5 在二進位中表示為 `101`，
 這是因為：
-- 1 個 4（$2^2$）
-- 0 個 2（$2^1$）
-- 1 個 1（$2^0$）
+- 1 個 4（\\(2^2\\)）
+- 0 個 2（\\(2^1\\)）
+- 1 個 1（\\(2^0\\)）
 
-所以 `101` 就是 $1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 4 + 0 + 1 = 5$。
+所以 `101` 就是 \\(1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0 = 4 + 0 + 1 = 5\\)。
 
 其實我們平常用的十進位也是一樣的道理，
 例如數字 123 在十進位中表示為：
-- 1 個 100（$10^2$）
-- 2 個 10（$10^1$）
-- 3 個 1（$10^0$）
-所以 `123` 就是 $1 \times 10^2 + 2 \times 10^1 + 3 \times 10^0 = 100 + 20 + 3 = 123$。
+- 1 個 100（\\(10^2\\)）
+- 2 個 10（\\(10^1\\)）
+- 3 個 1（\\(10^0\\)）
+所以 `123` 就是 \\(1 \times 10^2 + 2 \times 10^1 + 3 \times 10^0 = 100 + 20 + 3 = 123\\)。
 
 ### 位元運算
 
@@ -287,7 +287,6 @@ int main()
     cout << "a & b = " << (a & b) << '\n'; // 0000 0001 = 1
     cout << "a | b = " << (a | b) << '\n'; // 0000 0111 = 7
     cout << "a ^ b = " << (a ^ b) << '\n'; // 0000 0110 = 6
-    
     return 0;
 }
 ```
@@ -335,7 +334,8 @@ int main()
 `if` 語句的基本語法如下：
 
 ```cpp
-if (condition) {
+if (condition)
+{
     // 當 condition 為 true 時執行的程式碼
 }
 ```
@@ -354,7 +354,7 @@ int main()
     int number;
     cin >> number; // 讀取一個整數
 
-    if (number % 2 == 0) // 如果是偶數
+    if(number % 2 == 0) // 如果是偶數
         cout << "Even" << '\n'; // 輸出 "Even"
     return 0;
 }
@@ -368,9 +368,12 @@ int main()
 `else` 語句的基本語法如下：
 
 ```cpp
-if (condition) {
+if(condition)
+{
     // 當 condition 為 true 時執行的程式碼
-} else {
+}
+else
+{
     // 當 condition 為 false 時執行的程式碼
 }
 ```
@@ -386,7 +389,7 @@ int main()
     int number;
     cin >> number; // 讀取一個整數
 
-    if (number % 2 == 0) // 如果是偶數
+    if(number % 2 == 0) // 如果是偶數
         cout << "Even" << '\n'; // 輸出 "Even"
     else // 如果是奇數
         cout << "Odd" << '\n'; // 輸出 "Odd"
@@ -403,11 +406,16 @@ int main()
 `else if` 語句的基本語法如下：
 
 ```cpp
-if (condition1) {
+if (condition1)
+{
     // 當 condition1 為 true 時執行的程式碼
-} else if (condition2) {
+}
+else if (condition2)
+{
     // 當 condition2 為 true 時執行的程式碼
-} else {
+}
+else
+{
     // 當 condition1 和 condition2 都為 false 時執行的程式碼
 }
 ```
@@ -439,13 +447,15 @@ int main()
 如果 `signal` 是 1，則輸出 "Stop"；
 如果 `signal` 是 2，則輸出 "Caution"；如果 `signal` 是 3，則輸出 "Go"；
 如果 `signal` 不是 1、2 或 3，則輸出 "Invalid signal"。
+
 這樣我們就可以根據不同的條件來執行不同的程式碼，
 另外也可以發現 `else if` 可以有多個，
 這樣我們就可以處理更多種情況，
 但要注意的是，`else if` 的順序是有影響的，
 如果有多個 `else if`，程式會從上到下依次檢查條件，
 一旦找到符合條件的 `if` 或 `else if`，就會執行對應的程式碼，
-如果沒有符合條件的 `if` 或 `else if`，則會執行 `else` 的程式碼，
+如果沒有符合條件的 `if` 或 `else if`，則會執行 `else` 的程式碼。
+
 所以在寫 `if`、`else if` 和 `else` 語句時，要注意條件的順序，
 以確保程式能夠正確地執行。
 
@@ -469,8 +479,7 @@ int main()
 {
     int age;
     cin >> age; // 讀取年齡
-
-    if (age >= 18 && age <= 65) // 如果年齡在 18 到 65 歲之間
+    if(age >= 18 && age <= 65) // 如果年齡在 18 到 65 歲之間
         cout << "You are eligible to work." << '\n'; // 輸出 "You are eligible to work."
     else // 如果年齡不在 18 到 65 歲之間
         cout << "You are not eligible to work." << '\n'; // 輸出 "You are not eligible to work."
@@ -483,6 +492,7 @@ int main()
 然後使用邏輯運算符 `&&` 來判斷 `age` 是否在 18 到 65 歲之間，
 如果 `age` 在這個範圍內，則輸出 "You are eligible to work."，
 否則輸出 "You are not eligible to work."。
+
 邏輯運算符 `&&` 是邏輯與運算符，表示兩個條件都必須成立，
 而邏輯運算符 `||` 是邏輯或運算符，表示只要有一個條件成立即可，
 例如：
@@ -495,7 +505,7 @@ int main()
     int age;
     cin >> age; // 讀取年齡
 
-    if (age < 18 || age > 65) // 如果年齡小於 18 歲或大於 65 歲
+    if(age < 18 || age > 65) // 如果年齡小於 18 歲或大於 65 歲
         cout << "You are not eligible to work." << '\n'; // 輸出 "You are not eligible to work."
     else // 如果年齡在 18 到 65 歲之間
         cout << "You are eligible to work." << '\n'; // 輸出 "You are eligible to work."
@@ -503,9 +513,11 @@ int main()
     return 0;
 }
 ```
+
 在這個程式碼中，我們使用邏輯運算符 `||` 來判斷 `age` 是否小於 18 歲或大於 65 歲，
 如果 `age` 小於 18 歲或大於 65 歲，則輸出 "You are not eligible to work."，
 否則輸出 "You are eligible to work."。
+
 邏輯運算符 `!` 是邏輯非運算符，表示將條件取反，
 例如：
 
@@ -517,7 +529,7 @@ int main()
     bool isRaining;
     cin >> isRaining; // 讀取是否下雨
 
-    if (!isRaining) // 如果沒有下雨
+    if(!isRaining) // 如果沒有下雨
         cout << "You can go outside." << '\n'; // 輸出 "You can go outside."
     else // 如果下雨
         cout << "You should stay inside." << '\n'; // 輸出 "You should stay inside."
@@ -529,6 +541,7 @@ int main()
 然後使用邏輯運算符 `!` 來判斷是否沒有下雨，
 如果沒有下雨，則輸出 "You can go outside."，
 否則輸出 "You should stay inside."。
+
 邏輯運算符在處理多個條件時非常有用，
 例如在處理複雜的條件判斷時，可以使用邏輯運算符來組合多個條件，
 這樣可以使程式碼更簡潔易讀，
@@ -544,7 +557,8 @@ int main()
 如果你寫成 
 
 ```cpp
-if (1 <= A <= 100) {
+if(1 <= A <= 100)
+{
     // ...
 }
 ```
@@ -558,7 +572,8 @@ if (1 <= A <= 100) {
 正確的寫法應該是：
 
 ```cpp
-if (1 <= A && A <= 100) {
+if(1 <= A && A <= 100)
+{
     // ...
 }
 ```
@@ -577,12 +592,13 @@ if (1 <= A && A <= 100) {
 ```cpp
 #include <iostream>
 using namespace std;
+
 int main()
 {
     int A;
     cin >> A; // 讀取一個整數
 
-    if (A = 10) // 錯誤：使用了賦值運算符
+    if(A = 10) // 錯誤：使用了賦值運算符
         cout << "A is 10" << '\n';
     else
         cout << "A is not 10" << '\n';
@@ -606,7 +622,7 @@ int main()
     int A;
     cin >> A; // 讀取一個整數
 
-    if (A == 10) // 正確：使用了比較運算符
+    if(A == 10) // 正確：使用了比較運算符
         cout << "A is 10" << '\n';
     else
         cout << "A is not 10" << '\n';
@@ -633,7 +649,7 @@ using namespace std;
 int main()
 {
     double x = 0.1 + 0.2; // 這個結果可能不是 0.3
-    if (x == 0.3) // 直接比較浮點數
+    if(x == 0.3) // 直接比較浮點數
         cout << "x is equal to 0.3" << '\n';
     else
         cout << "x is not equal to 0.3" << '\n';
@@ -658,7 +674,7 @@ int main()
     double x = 0.1 + 0.2; // 這個結果可能不是 0.3
     double tolerance = 1e-9; // 設定一個小的容忍度
 
-    if (x - 0.3 < tolerance && x - 0.3 > -tolerance) // 使用容忍度來比較浮點數
+    if(x - 0.3 < tolerance && x - 0.3 > -tolerance) // 使用容忍度來比較浮點數
         cout << "x is approximately equal to 0.3" << '\n';
     else
         cout << "x is not approximately equal to 0.3" << '\n';
