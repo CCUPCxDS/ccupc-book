@@ -4,10 +4,10 @@
 
 ---
 
-- [競賽入門](courses/intro.md)
-- [C++ 基礎語法](courses/syntax.md)
-- [陣列與迴圈](courses/loop-and-array.md)
-- [指標與字元字串]()
+- [競賽入門](courses/intro/intro.md)
+- [C++ 基礎語法](courses/syntax/syntax.md)
+- [陣列與迴圈](courses/loop-array/loop-and-array.md)
+- [指標與字元字串](courses/pointer-string/pointer-and-string.md)
 - [副函式與遞迴應用]()
 - [時間複雜度、排序與二分搜尋法]()
 - [標準模板庫 STL]()

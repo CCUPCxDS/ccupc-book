@@ -163,17 +163,53 @@ int main()
 ```
 這樣就可以得到 `3.333...` 的結果了。
 
->#### 注意
-> 這裡比較特別的是取模運算符 `%`，它的實現在部分語言中可能會有所不同，
-> 在 C++ 中，`a % b` 的結果是 `a` 除以 `b` 的餘數，
-> 例如 `10 % 3` 的結果是 `1`，因為 10 除以 3 的餘數是 1，
-> 但如果 `a` 或 `b` 是負數，則結果可能會有所不同，
-> 例如 `-10 % 3` 的結果是 `-1`，因為 -10 除以 3 的餘數是 -1，
-> 但如果是在 Python 中，`-10 % 3` 的結果是 `2`，
-> 因為 Python 中的取模運算符會將結果調整到非負數，
-> 這是因為 Python 中的取模運算符是基於數學定義的，
-> 而 C++ 中的取模運算符則是基於 C 語言的實現，
-> 所以在使用取模運算符時要特別注意。
+<span class="warning">
+<strong>注意：</strong>
+
+這裡比較特別的是取模運算符 `%`，它的實現在部分語言中可能會有所不同，
+
+在 C++ 中，`a % b` 的結果是 `a` 除以 `b` 的餘數，
+例如 `10 % 3` 的結果是 `1`，因為 10 除以 3 的餘數是 1，
+但如果 `a` 或 `b` 是負數，則結果可能會有所不同，
+例如 `-10 % 3` 的結果是 `-1`，因為 -10 除以 3 的餘數是 -1，
+但如果是在 Python 中，`-10 % 3` 的結果是 `2`，
+因為 Python 中的取模運算符會將結果調整到非負數，
+這是因為 Python 中的取模運算符是基於數學定義的，
+而 C++ 中的取模運算符則是基於 C 語言的實現，
+所以在使用取模運算符時要特別注意。
+</span>
+
+
+> ### 練習題
+>
+> 一包餅乾的價格是 15 元，一顆蘋果的價格是 20 元，
+> 現在小明想要買 a 包餅乾和 b 顆蘋果，
+> 請問小明需要花多少錢？
+>
+> #### 技術規格
+> - 輸入兩個整數 a 和 b，分別表示包餅乾和蘋果的數量。
+> - 輸出一個整數，表示小明需要花的錢數。
+> - \\(a, b\\) 的範圍是 \\(1 \\leq a, b \\leq 100\\)。
+> #### 範例輸入
+> 3 4
+> #### 範例輸出
+> 125
+
+<details><summary> 範例答案 </summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int a, b;
+    cin >> a >> b;
+    cout << a * 15 + b * 20 << '\n';
+    return 0;
+}
+```
+</details>
 
 ## 變數的作用域
 變數的作用域是指變數可以被訪問的範圍，
@@ -325,6 +361,36 @@ int main()
 你會發現 `>>` 和 `<<` 長得跟輸出輸入的運算符一樣，
 這是因為 C++ 中的輸入輸出運算符也是使用這兩個運算符，
 所以使用括號來明確運算順序是很重要的。
+
+> #### 練習題
+>
+> 寫一個程式，輸入會有 5 個以空白隔開的非負整數，<br>
+> 代表當前整數的二進位表示，最左邊的數字是最高位，
+> 請還原這個二進位表示的十進位整數並輸出。
+>
+> ##### 範例輸入
+> 1 0 1 0 1
+> ##### 範例輸出
+> 21
+
+<details><summary> 範例答案 </summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int b1, b2, b3, b4, b5;
+    cin >> b1 >> b2 >> b3 >> b4 >> b5; // 讀取五個二進位數字
+    int decimal = (b1 << 4) | (b2 << 3) | (b3 << 2) | (b4 << 1) | b5;
+    // 邏輯或運算還原十進位數字
+    // 將每個二進位數字左移相應的位數，然後使用位元或運算符將它們合併
+    cout << decimal << '\n'; // 輸出十進位數字
+    return 0;
+}
+```
+</details>
 
 ## 條件處理
 
@@ -480,9 +546,9 @@ int main()
     int age;
     cin >> age; // 讀取年齡
     if(age >= 18 && age <= 65) // 如果年齡在 18 到 65 歲之間
-        cout << "You are eligible to work." << '\n'; // 輸出 "You are eligible to work."
+        cout << "You are eligible to work." << '\n';
     else // 如果年齡不在 18 到 65 歲之間
-        cout << "You are not eligible to work." << '\n'; // 輸出 "You are not eligible to work."
+        cout << "You are not eligible to work." << '\n';
     
     return 0;
 }
@@ -506,9 +572,9 @@ int main()
     cin >> age; // 讀取年齡
 
     if(age < 18 || age > 65) // 如果年齡小於 18 歲或大於 65 歲
-        cout << "You are not eligible to work." << '\n'; // 輸出 "You are not eligible to work."
+        cout << "You are not eligible to work." << '\n';
     else // 如果年齡在 18 到 65 歲之間
-        cout << "You are eligible to work." << '\n'; // 輸出 "You are eligible to work."
+        cout << "You are eligible to work." << '\n';
     
     return 0;
 }
@@ -530,9 +596,9 @@ int main()
     cin >> isRaining; // 讀取是否下雨
 
     if(!isRaining) // 如果沒有下雨
-        cout << "You can go outside." << '\n'; // 輸出 "You can go outside."
+        cout << "You can go outside." << '\n';
     else // 如果下雨
-        cout << "You should stay inside." << '\n'; // 輸出 "You should stay inside."
+        cout << "You should stay inside." << '\n';
     
     return 0;
 }
@@ -546,6 +612,39 @@ int main()
 例如在處理複雜的條件判斷時，可以使用邏輯運算符來組合多個條件，
 這樣可以使程式碼更簡潔易讀，
 同時也可以提高程式的可維護性。
+
+> #### 練習題
+> 輸入一個非負整數 \\(x\\)，
+> 請判斷它是不是 \\(5\\) 的倍數。
+> #### 技術規格
+> - 輸入一個非負整數 \\(x\\)。
+> - 輸出 "Yes" 如果 \\(x\\) 是 \\(5\\) 的倍數，否則輸出 "No"。
+> - \\(0 \leq x \leq 10^9\\)。
+> #### 範例輸入
+> 10
+> #### 範例輸出
+> Yes
+
+<details><summary> 範例答案 </summary>
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int x;
+    cin >> x;
+
+    if(x % 5 == 0)
+        cout << "Yes" << '\n';
+    else
+        cout << "No" << '\n';
+
+    return 0;
+}
+```
+</details>
 
 ### 常犯的錯誤
 
