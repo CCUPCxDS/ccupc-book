@@ -1,5 +1,6 @@
 https://ccupc-book.csie.io/index.html
 https://ccupc-book.csie.io/thanks.html
-https://ccupc-book.csie.io/courses/intro.html
-https://ccupc-book.csie.io/courses/loop-and-array.html
-https://ccupc-book.csie.io/courses/syntax.html
+https://ccupc-book.csie.io/courses/intro/intro.html
+https://ccupc-book.csie.io/courses/loop-array/loop-and-array.html
+https://ccupc-book.csie.io/courses/pointer-string/pointer-and-string.html
+https://ccupc-book.csie.io/courses/syntax/syntax.html
