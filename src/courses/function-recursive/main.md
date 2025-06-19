@@ -706,6 +706,13 @@ void move_plate(int number_of_plates, char from, char to, char aux)
 這樣的過程需要重複進行 \\(n\\) 次，
 所以總步數為 \\(1 + 2 + 4 + ... + 2^{n-1} = 2^n - 1\\)。
 
+## 題單
+
+- [CSES 2205 - Gray Code](https://cses.fi/problemset/task/2205)
+- [CSES 2165 - Tower of Hanoi](https://cses.fi/problemset/task/2165)
+- [CSES 1624 - Chessboard and Queens](https://cses.fi/problemset/task/1624) 難題
+
+
 ## References:
 
 

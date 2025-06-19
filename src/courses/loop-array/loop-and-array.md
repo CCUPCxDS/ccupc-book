@@ -546,7 +546,13 @@ cin.tie(false); // 解除 cin 與 cout 的綁定
 讓我們可以更靈活地操作資料，
 並且能夠更有效地使用記憶體。
 
+## 題單
 
+- [CSES 1068 - Weird Algorithm](https://cses.fi/problemset/task/1068)
+- [CSES 1083 - Missing Number](https://cses.fi/problemset/task/1083)
+- [CSES 1069 - Repetitions](https://cses.fi/problemset/task/1069)
+- [CSES 1070 - Permutations](https://cses.fi/problemset/task/1070)
+- [CSES 1071 - Number Spiral](https://cses.fi/problemset/task/1071)
 
 ## Reference
 

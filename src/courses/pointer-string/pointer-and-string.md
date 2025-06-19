@@ -818,6 +818,11 @@ int main()
 以及如何使用字串流 `stringstream` 來在字串和其他資料型態之間進行轉換。
 這些概念在 C++ 中非常重要，因為它們可以幫助我們更有效地管理記憶體和處理資料。
 
+## 題單
+
+- [CSES 1755 - String Reorder](https://cses.fi/problemset/task/1755)
+- [Atcoder ABC 381 A](https://atcoder.jp/contests/abc381/tasks/abc381_a)
+- [Atcoder ABC 053 B](https://atcoder.jp/contests/abc053/tasks/abc053_b)
 
 ## Reference
 
