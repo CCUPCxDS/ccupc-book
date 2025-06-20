@@ -1,5 +1,8 @@
 https://ccupc-book.csie.io/index.html
 https://ccupc-book.csie.io/thanks.html
+https://ccupc-book.csie.io/courses/dynamic-programming/main.html
+https://ccupc-book.csie.io/courses/enumerate/main.html
+https://ccupc-book.csie.io/courses/function-recursive/main.html
 https://ccupc-book.csie.io/courses/intro/intro.html
 https://ccupc-book.csie.io/courses/loop-array/loop-and-array.html
 https://ccupc-book.csie.io/courses/pointer-string/pointer-and-string.html

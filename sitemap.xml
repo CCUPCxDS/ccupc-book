@@ -2,26 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://ccupc-book.csie.io/index.html</loc>
-        <lastmod>2025-06-17T12:53:35.365Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.435Z</lastmod>
     </url>
     <url>
         <loc>https://ccupc-book.csie.io/thanks.html</loc>
-        <lastmod>2025-06-17T12:53:35.371Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.444Z</lastmod>
+    </url>
+    <url>
+        <loc>https://ccupc-book.csie.io/courses/dynamic-programming/main.html</loc>
+        <lastmod>2025-06-20T11:24:33.443Z</lastmod>
+    </url>
+    <url>
+        <loc>https://ccupc-book.csie.io/courses/enumerate/main.html</loc>
+        <lastmod>2025-06-20T11:24:33.443Z</lastmod>
+    </url>
+    <url>
+        <loc>https://ccupc-book.csie.io/courses/function-recursive/main.html</loc>
+        <lastmod>2025-06-20T11:24:33.442Z</lastmod>
     </url>
     <url>
         <loc>https://ccupc-book.csie.io/courses/intro/intro.html</loc>
-        <lastmod>2025-06-17T12:53:35.366Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.436Z</lastmod>
     </url>
     <url>
         <loc>https://ccupc-book.csie.io/courses/loop-array/loop-and-array.html</loc>
-        <lastmod>2025-06-17T12:53:35.369Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.439Z</lastmod>
     </url>
     <url>
         <loc>https://ccupc-book.csie.io/courses/pointer-string/pointer-and-string.html</loc>
-        <lastmod>2025-06-17T12:53:35.370Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.440Z</lastmod>
     </url>
     <url>
         <loc>https://ccupc-book.csie.io/courses/syntax/syntax.html</loc>
-        <lastmod>2025-06-17T12:53:35.367Z</lastmod>
+        <lastmod>2025-06-20T11:24:33.438Z</lastmod>
     </url>
 </urlset>
