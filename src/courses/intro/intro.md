@@ -1,6 +1,8 @@
 # 競賽入門
 
-> 作者: **D1stance**
+~~~admonish note title="作者"
+D1stance (吳翰平)
+~~~
 
 ## 何謂競技程式
 

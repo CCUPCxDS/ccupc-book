@@ -1,6 +1,8 @@
 # 指標與字串
 
-> 作者: **D1stance** 
+~~~admonish note title="作者"
+D1stance (吳翰平)
+~~~
 
 ## 指標
 
@@ -173,9 +175,9 @@ int ****fptr = &tptr; // fptr 是指向 tptr 的四重指標
 
 先把原本的 `int ****` 的型態寫上去，
 
-變成 `int ****fptr` 你想知道 `*fptr` 的值是什麼，
+變成 `int ****fptr`，
 
-就把 `*fptr` 遮起來，剩下的部分是 `int ***`，所以 `*fptr` 的值是 `int ***` 的值，也就是 `tptr` 的值。
+你想知道 `*fptr` 的值是什麼，就把 `*fptr` 遮起來，剩下的部分是 `int ***`，所以 `*fptr` 的值是 `int ***` 的值，也就是 `tptr` 的值。
 
 ### 參考 Reference `&`
 
@@ -212,10 +214,9 @@ b += *c;
 cout << a << " " << b << '\n';
 ```
 
-<details><summary> 答案 </summary>
+~~~admonish note title="答案" collapsible=true
 12 15
-</details>
-
+~~~
 
 ## 陣列與指標
 
@@ -296,9 +297,9 @@ int main(){
 }
 ```
 
-<details><summary> 答案 </summary>
+~~~admonish note title="答案" collapsible=true
 5 5
-</details>
+~~~
 
 #### 第二題
 
@@ -316,9 +317,9 @@ int main(){
 }
 ```
 
-<details><summary> 答案 </summary>
+~~~admonish note title="答案" collapsible=true
 3
-</details>
+~~~
 
 #### 第三題
 
@@ -339,9 +340,9 @@ int main(){
 }
 ```
 
-<details><summary> 答案 </summary>
+~~~admonish note title="答案" collapsible=true
 6 12
-</details>
+~~~
 
 ## 字元與字串
 

@@ -1,6 +1,8 @@
 # 迴圈與陣列
 
-> 作者: **D1stance**
+~~~admonish note title="作者"
+D1stance (吳翰平)
+~~~
 
 ## 迴圈
 
@@ -424,6 +426,10 @@ vt.assign(100, 10);
 ```cpp
 vector<int> vt(100, 0); // 宣告一個大小為 100 的 vector，內容為 0
 vector<vector<int>> vt_2d(100, vt); // 宣告一個大小為 100 x 100 的二維 vector，內容為 0
+
+// 或者可以這樣宣告
+vector<vector<int>> vt_2d(100, vector<int>(100, 0));
+// 宣告一個大小為 100 x 100 的二維 vector，內容為 0
 ```
 
 ## 迴圈特殊語法以及 EOF
@@ -459,11 +465,11 @@ for(int i = 0; i < 100; ++i)
 這樣程式碼會印出 1、3、5、7 ... 99 的數字，當 i 是偶數時，跳過這次迴圈。
 這樣就可以在迴圈中使用 `break` 和 `continue` 來控制迴圈的執行。
 
-<div class="warning">
-    <strong>注意：</strong>在使用 `break` 和 `continue` 時，要特別注意只會跳出或跳過當前的迴圈，
-    如果有多層迴圈，`break` 只會跳出當前的迴圈，而不會跳到全部的迴圈外面，
-    因此好好透過縮排來區分不同的迴圈層級是很重要的。
-</div>
+~~~admonish warning title="注意"
+在使用 `break` 和 `continue` 時，要特別注意只會跳出或跳過當前的迴圈，
+如果有多層迴圈，`break` 只會跳出當前的迴圈，而不會跳到全部的迴圈外面，
+因此好好透過縮排來區分不同的迴圈層級是很重要的。
+~~~
 
 ### EOF
 

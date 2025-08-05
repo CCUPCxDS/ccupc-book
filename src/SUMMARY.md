@@ -5,6 +5,7 @@
 ---
 
 - [競賽入門](courses/intro/intro.md)
+- [環境設置](courses/intro/seup_environment.md)
 - [C++ 基礎語法](courses/syntax/syntax.md)
 - [陣列與迴圈](courses/loop-array/loop-and-array.md)
 - [指標與字元字串](courses/pointer-string/pointer-and-string.md)

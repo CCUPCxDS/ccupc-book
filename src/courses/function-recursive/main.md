@@ -1,6 +1,8 @@
 # 副函式與遞迴
 
-> 作者: **D1stance**
+~~~admonish note title="作者"
+D1stance (吳翰平)
+~~~
 
 ## 副函式
 
@@ -311,7 +313,7 @@ int main()
 > 102
 > ```
 
-<details><summary>解答</summary>
+~~~admonish note title="解答" collapsible=true
 
 ```c++
 #include <iostream>
@@ -337,7 +339,7 @@ int G(int x)
 }
 ```
 
-</details>
+~~~
 
 ## 遞迴
 
@@ -482,7 +484,7 @@ int main()
 > 120
 > ```
 
-<details><summary>解答</summary>
+~~~admonish note title="解答" collapsible=true
 
 ```c++
 #include <iostream>
@@ -503,7 +505,7 @@ int main()
     return 0;
 }
 ```
-</details>
+~~~
 
 ### 遞迴的優化
 在遞迴的實作中，特別是像費式數列這樣的問題，

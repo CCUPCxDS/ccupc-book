@@ -1,6 +1,8 @@
 # 暴力搜尋法
 
-> 作者: **D1stance**
+~~~admonish note title="作者"
+D1stance (吳翰平)
+~~~
 
 暴力搜尋法 (Brute Force) 可謂是一種最直覺的搜尋方法，通常是指對所有可能的解進行檢查，直到找到滿足條件的解為止。
 常用來跟其他更高效的演算法進行比較，確認解法的正確性。
@@ -52,7 +54,6 @@
 其中 \\(n\\) 是輸入的數字個數，\\(10^3\\) 是因為我們只需要考慮個位數的組合，
 這樣就可以在合理的時間內解決問題。
 
-<details> <summary>程式碼</summary>
 
 ```cpp
 #include <bits/stdc++.h>
@@ -102,7 +103,6 @@ int main()
 這樣就會導致錯誤的結果。
 這樣的處理方式可以確保我們只考慮到不同的個位數組合，
 避免重複計算。
-</details>
 
 ## 子集合枚舉
 
@@ -175,7 +175,7 @@ if(mask & (1 << i)) {
 > - \\(1 \le k \le 10^9\\)
 > - \\(1 \le a_i \le 10^9\\)
 
-<details> <summary>程式碼</summary>
+~~~admonish note title="範例解法" collapsible=true
 
 ```cpp
 #include <bits/stdc++.h>
@@ -202,7 +202,6 @@ int main()
 }
 ```
 
-</details>
 
 因為透過二進位的方式枚舉子集合，
 所以還需要多花一個迴圈才知道當前選了哪些元素，
@@ -214,7 +213,6 @@ int main()
 或者不加入到子集合中，這樣就可以生成所有的子集合。
 這樣的方式可以用遞迴來實現，時間複雜度為 \\(\mathcal{O}(2^n)\\)。
 
-<details> <summary>程式碼</summary>
 
 ```cpp
 #include <bits/stdc++.h>
@@ -256,7 +254,7 @@ int main()
 
 這樣的方式可以讓我們更高效地枚舉子集合。
 
-</details>
+~~~
 
 ## 排列枚舉
 
@@ -299,7 +297,7 @@ int main()
 > - \\(1 \le n \le 10\\)
 > - \\(1 \le k \le n\\)
 
-<details> <summary>程式碼</summary>
+~~~admonish note title="範例程式碼" collapsible=true
 
 ```cpp
 #include <bits/stdc++.h>
@@ -333,7 +331,7 @@ int main()
     return 0;
 }
 ```
-</details>
+~~~
 
 ## 折半枚舉
 
