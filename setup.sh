@@ -6,7 +6,7 @@ curl -Lo mbbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.
 tar xvzf mbbook.tar.gz
 
 # 下載並解壓 katex plugin
-curl -Lo mdbook-katex.tar.gz https://github.com/lzanini/mdbook-katex/releases/download/v0.9.4/mdbook-katex-0.9.4.tar.gz
+curl -Lo mdbook-katex.tar.gz https://github.com/lzanini/mdbook-katex/releases/download/0.9.3-binaries/mdbook-katex-v0.9.3-x86_64-unknown-linux-musl.tar.gz
 tar xvzf mdbook-katex.tar.gz
 
 # 下載並解壓 admonish plugin
