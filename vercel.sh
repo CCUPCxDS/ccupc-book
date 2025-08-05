@@ -12,4 +12,6 @@ tar xvzf mdbook-katex.tar.gz
 curl -Lo mdbook-admonish.tar.gz https://github.com/tommilligan/mdbook-admonish/releases/download/v1.20.0/mdbook-admonish-v1.20.0-x86_64-unknown-linux-musl.tar.gz
 tar xvzf mdbook-admonish.tar.gz
 
-./mdbook build
+# 設定 PATH
+export PATH="$(pwd):$PATH"
+mdbook build
