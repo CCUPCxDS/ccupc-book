@@ -177,7 +177,7 @@ for(int count = 0; count < 100; count++)
 > #### 範例輸出
 > 55
 
-<details><summary> 範例答案 </summary>
+~~~admonish note title="範例解答" collapsible=true
 
 ```cpp
 #include <iostream>
@@ -196,11 +196,12 @@ int main()
 }
 ```
 
+
 因為 \\(f(x)\\) 的值最大約為 \\(x^2\\)，
 又因為 \\(x\\) 的最大值為 \\(10^6\\)，
 所以我們使用 `long long` 型態來儲存總和，
 以避免溢位的問題。
-</details>
+~~~
 
 
 

@@ -33,10 +33,15 @@
 - [網路流*]()
 - [字串演算法*]()
     - [雜湊與 KMP]()
+    - [Z Value]()
     - [Trie]()
+    - [Manacher 演算法]()
+    - [Suffix Array]()
 - [計算幾何*]()
 - [進階動態規劃*]()
 
 ---
 
+- [待完成清單](in_progress.md)
 - [特別感謝](thanks.md)
+
