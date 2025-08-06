@@ -28,21 +28,9 @@ CCUPC Book 使用 Rust 團隊的 MDBook 作為網站的內容管理系統，加�
 
 如果你想要了解如何使用 MDBook 來撰寫內容，可以參考 [MDBook 的官方文檔](https://rust-lang.github.io/mdBook/index.html)。
 
-安裝好 mdbook 之後，還要安裝一些附加功能，例如 `mdbook-admonish` 來美化網站布局。
+因為本專案使用了 MDBook Admonish 以及 MDBook Katex，所以你需要安裝這兩個插件，
+使用 Cargo 來安裝這些插件需要耗費大量時間，
+因此建議使用本專案的 `vercel.sh` 腳本來安裝這些插件，
+這個腳本會自動安裝 MDBook 以及所需的插件 binaries，
+減少安裝時間。
 
-```bash
-cargo install mdbook-admonish
-cargo install mdbook-katex
-```
-
-使用以下指令來啟動 MDBook 的本地伺服器：
-
-```bash
-mdbook serve
-```
-
-需要確保你已經安裝了 MDBook，並且在專案根目錄下執行此指令。
-
-這個指令會啟動一個本地伺服器，通常會在 `http://localhost:3000` 上運行。
-
-這樣就可以在本地端啟動一個伺服器，並且可以在瀏覽器中查看內容。
