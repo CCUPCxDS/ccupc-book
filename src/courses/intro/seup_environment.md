@@ -71,4 +71,59 @@ int main()
 
 ## Visual Studio Code
 
-To be continued...
+Visual Studio Code (下稱 VS Code) 是一個由微軟開發的免費開源程式碼編輯器，支援多種程式語言，包括 C++。它有許多強大的功能，如語法高亮、程式碼補全、除錯等。但因為 VS Code 本身並不包含 C++ 編譯器，所以我們需要額外安裝一些東西來讓它能夠編譯和執行 C++ 程式。
+
+### 安裝 LLVM MinGW
+
+LLVM MinGW 是一個 C++ 編譯器，是一個支援跨平台的編譯器，剛才的 CP Editor 就是使用這個編譯器來編譯 C++ 程式的，
+但是因為 VS Code 本身並不包含 C++ 編譯器，所以我們需要額外安裝 LLVM MinGW。
+
+1. 前往 [LLVM MinGW GitHub 頁面](https://github.com/mstorsjo/llvm-mingw/releases) 下載最新版本的 Prebuilt LLVM MinGW。
+2. 找到 "Latest" 字樣的版本，點擊進入，尋找對應你作業系統的壓縮檔案，這裡以 Windows 為例，下載 `llvm-mingw-<version>-x86_64.zip`。
+![alt text](vscode/image.png)
+3. 直接解壓縮後放到你想要的資料夾中，例如 `C:\llvm-mingw`。
+4. 接著需要將 LLVM MinGW 的 `bin` 資料夾加入系統的環境變數中，這樣 VS Code 才能找到編譯器。
+   - 在 Windows 中，進入設定面板，搜尋 「環境變數」。
+   ![alt text](vscode/image-1.png)
+   - 在對話框中，點擊「環境變數」。
+   ![alt text](vscode/image-2.png)
+   - 在「系統變數」區域，找到名為 `Path` 的變數，選擇它並點擊「編輯」。
+   ![alt text](vscode/image-3.png)
+   - 點擊「新增」，然後輸入 LLVM MinGW 的 `bin` 資料夾的路徑，例如 `C:\llvm-mingw\bin`。
+   ![alt text](vscode/image-4.png)
+   - 點擊「確定」保存更改。
+5. 為了確保環境變數生效，建議重新啟動電腦，接著打開命令提示字元 (CMD)，輸入 `g++ --version`，如果顯示出版本資訊，表示 LLVM MinGW 安裝成功。
+![alt text](vscode/image-5.png)
+
+### 安裝 Visual Studio Code
+
+1. 前往 [Visual Studio Code 官方網站](https://code.visualstudio.com/) 進行下載
+2. 點擊「Download for Windows」按鈕，下載適合你作業系統的安裝檔。
+3. 下載完成後，雙擊安裝檔，按照指示完成安裝。
+4. 因為 VS Code 也會新增一些環境變數，所以建議重新啟動電腦。
+5. 打開 VS Code，點擊左側的擴充功能圖示 (Extensions)，搜尋 `C/C++`，安裝由 Microsoft 提供的 C/C++ 擴充套件。
+![alt text](vscode/image-6.png)
+6. 接著新增一個 C++ 檔案，點擊左上角的「檔案」>「新檔案」，將檔案儲存為 `main.cpp`。
+7. 將範例程式碼複製到 `main.cpp` 中：
+```cpp
+#include <iostream>
+int main()
+{
+    std::cout << "Hello world!\n";
+    return 0;
+}
+```
+8. 接著按下 `Ctrl + ‵`，開啟終端機，然後輸入以下指令來編譯程式：
+```bash
+g++ main.cpp -o main
+```
+這個指令會將 `main.cpp` 編譯成一個可執行檔 `main.exe`。
+9. 編譯完成後，輸入以下指令來執行程式：
+```bash
+main.exe
+```
+![alt text](vscode/image-7.png)
+如果一切順利，你應該會看到輸出結果為 `Hello world!`。
+
+到此，你已經成功設置了 Visual Studio Code 開發環境，
+並且可以開始寫 C++ 程式了。
