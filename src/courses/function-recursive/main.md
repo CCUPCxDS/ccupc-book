@@ -342,10 +342,29 @@ int G(int x)
 
 ~~~
 
+
+## 純函數
+
+純函數 （Pure Function）是指函式在執行時不會改變任何外部狀態，
+並且對於相同的輸入總是返回相同的輸出。
+
+舉凡像是使用 `cin`、`cout`、`printf`、`scanf` 等輸入輸出函式，
+或者是透過指標或參考修改變數的函式，
+都不是純函數，像是剛才的 `swap` 函式，就不是純函數。
+
+這裡提到純函數的概念，是因為純函數在程式設計中有很多優點，
+例如：
+1. **可測試性**：純函數的輸出只依賴於輸入，這使得測試變得更簡單。
+2. **可重用性**：純函數可以在不同的上下文中重複使用，而不會影響到其他部分的程式。
+3. **可預測性**：純函數的行為是可預測的，這使得程式更容易理解和維護。
+
+因為會閱讀本篇教學的人應該都是程式初學者，或者是要教初學者的人，
+有純函數的概念在等下的遞迴章節會比較容易切入。
+
 ## 遞迴
 
 函式除了可以分區功能以及重複使用之外，
-我們也可以將問題用函示來切分，像是將陣列分成左右兩邊，
+我們也可以將問題用函式來切分，像是將陣列分成左右兩邊，
 分別去處理問題，但是處理的邏輯是相同的，
 這種情況下，我們可能會呼叫跟自己相同的函式，只是參數不同，
 這種情況稱為遞迴（Recursion）。
@@ -365,8 +384,13 @@ int G(int x)
 而 $F(n-1)$ 和 $F(n-2)$ 又可以分解為更小的問題，
 直到可以直接得出答案的 $F(0)$ 和 $F(1)$。
 
-我們以 $F(4)$ 為例，來看看求解的過程：
+這個也是遞迴讓人很害怕的地方，
+假設我們在數學課中想要求出 $F(4)$ 的值，
+我們肯定是先算出 $F(2)$ 再去逐一推算，
+而不是從 $F(4)$ 開始算起，然後拆解成兩個子問題，也就是說程式上的遞迴跟數學上的遞迴
+本質上就是方向完全相反的事情，所以我們會對於程式上的遞迴的正確性抱有懷疑。
 
+我們以 $F(4)$ 為例，來看看求解的過程：
 
 從圖中可以看到，$F(4)$ 的值是由 $F(3)$ 和 $F(2)$ 的值決定的，但我們還不知道 $F(3)$ 的值，
 我們先從 $F(3)$ 繼續分解，
@@ -463,6 +487,9 @@ int main()
 但是因為沒有使用任何額外的資料結構來儲存已經計算過的值，
 所以這個遞迴的實現方式在計算較大的 `n` 時會非常慢，
 因為會重複計算很多次相同的值。
+
+因為上面的 `fibonacci` 函式是純函式，所以我們甚至可以先算 `fibonacci(n - 2)`，
+這樣對於結果是沒有影響的，也是純函式讓人放心的地方。
 
 ~~~admonish info title="練習題"
 請實作一個函式 `factorial`，計算給定整數 `n` 的階乘（Factorial），
@@ -710,15 +737,15 @@ C 柱子上沒有盤子。<br>
 而遞迴過程可以用以下的類似實作來達成：
 
 ```c++
-// 虛擬碼
 void move_plate(int number_of_plates, char from, char to, char aux)
 {
     if(number_of_plates == 1)
     {
-        // 只有一個盤子，可以直接移動
+        cout << "Move plate from " << from << " to " << to << '\n'; // 基本情況，直接移動盤子
+        return;
     }
     move_plate(number_of_plates - 1, from, aux, to); // 將上面的盤子從 from 移動到 aux
-    // 將最下面的盤子從 from 移動到 to
+    move_plate(1, from, to, aux); // 將最下面的盤子從 from 移動到 to
     move_plate(number_of_plates - 1, aux, to, from); // 將 aux 上的盤子從 aux 移動到 to
 }
 ```
@@ -739,6 +766,153 @@ void move_plate(int number_of_plates, char from, char to, char aux)
 然後再將上面的盤子從其他柱子移到目標柱子上，
 這樣的過程需要重複進行 $n$ 次，
 所以總步數為 $1 + 2 + 4 + ... + 2^{n-1} = 2^n - 1$。
+
+很多教學都只會講到這一步，但這個遞迴函數其實是一個非常糟糕的函數，
+也許有同學看到這裡還是一知半解，原因是什麼？
+
+首先，這個函數沒辦法直接得知每個盤子是怎麼移動的，以及每個柱子上有多少個盤子，
+這樣的函數只能告訴你最終的結果，而且其實你偷偷移動下面三個函數的順序，會發現答案就錯了，
+並不符合純函數的定義。
+
+所以我想以純函數的角度時做一個直觀的河內塔，
+也許它所需要花費更多記憶體空間，但它能夠清楚地告訴你每個盤子是怎麼移動的。
+
+我們想要知道盤子具體是怎麼被移動的，所以需要用三個 `vector<int>` 來代表三根柱子上的盤子編號，
+河內塔函數需要回傳一個 `vector<vector<vector<int>>`，
+這個三維陣列的第一維代表每個盤子移動的步驟，清楚記錄每一個移動後盤子擺放的狀態，
+所以我們函數會有四個輸入參數：
+- `init_state`：初始狀態，vector<vector<int>>，三個 vector<int> 分別代表 A、B、C 三根柱子上的盤子編號。
+- `number_of_plates`：目前要移動的盤子數量。
+- `from`：要從哪個柱子移動盤子。
+- `to`：要將盤子移動到哪個柱子。
+
+先寫一個輔助函式 `move_plate`，用來實際移動盤子，並產生下一個狀態。
+
+```c++
+vector<vector<int>> move_plate(const vector<vector<int>>& state, int number_of_plates, int from, int to)
+{
+    vector<vector<int>> next_state = state; // 複製當前狀態
+   
+    assert(next_state[from].size() >= number_of_plates); // 確保從柱子上有足夠的盤子可以移動
+
+    vector<int> temp; // 用來暫存從柱子上移動的盤子
+    for(int i = 0; i < number_of_plates; ++i)
+    {
+        temp.push_back(next_state[from].back()); // 將從柱子上最上面的盤子移動到暫存區
+        next_state[from].pop_back(); // 從原柱子上移除最上面的盤子
+    }
+    for(int i = 0; i < number_of_plates; ++i)
+    {
+        next_state[to].push_back(temp.back()); // 將暫存區的盤子移動到目標柱子上
+        temp.pop_back(); // 從暫存區移除已經移動的盤子
+    }
+    return next_state; // 返回新的狀態
+}
+```
+
+需要使用暫存區來暫存從柱子上移動的盤子，因為順序不能錯，
+假設現在的狀態是 
+```
+{
+    {3, 2, 1}, // A 柱子上的盤子
+    {},        // B 柱子上的盤子
+    {}         // C 柱子上的盤子
+}
+```
+如果要將上面的兩個盤子從 A 移動到 C，
+
+結果應該要是
+```
+{
+    {3},      // A 柱子上的盤子
+    {},        // B 柱子上的盤子
+    {2, 1}     // C 柱子上的盤子
+}
+```
+
+所以需要暫存區來確保盤子的順序不會錯亂。
+
+有了這個輔助函式之後，我們就可以實作河內塔的主函式了。
+
+```c++
+vector<vector<vector<int>>> hanoi(const vector<vector<int>>& init_state, int number_of_plates, int from, int to)
+{
+    if(number_of_plates == 1)
+        return {move_plate(init_state, 1, from, to)}; // 基本情況，直接移動盤子
+
+    int aux = 3 - from - to;
+    // (0 + 1 + 2) = 3，所以 3 - from - to 就是剩下那根柱子的編號
+
+    // 協助函式 move_plate 會返回下一個狀態
+    vector<vector<int>> s1 = move_plate(init_state, number_of_plates - 1, from, aux); // 將上面的盤子從 from 移動到 aux
+    vector<vector<int>> s2 = move_plate(s1, 1, from, to); // 將最下面的盤子從 from 移動到 to
+    vector<vector<int>> s3 = move_plate(s2, number_of_plates - 1, aux, to); // 將 aux 上的盤子從 aux 移動到 to
+
+    vector<vector<vector<int>>> result;
+    auto &&step1 = hanoi(init_state, number_of_plates - 1, from, aux);
+    auto &&step2 = hanoi(s1, 1, from, to);
+    auto &&step3 = hanoi(s2, number_of_plates - 1, aux, to);
+
+    // 驗證每個步驟的狀態是否正確
+    assert(step1.back() == s1);
+    assert(step2.back() == s2);
+    assert(step3.back() == s3);
+
+    result.insert(result.end(), step1.begin(), step1.end());
+    result.insert(result.end(), step2.begin(), step2.end());
+    result.insert(result.end(), step3.begin(), step3.end());
+    return result; // 返回所有步驟的狀態
+}
+```
+
+只有在 `number_of_plates == 1` 的時候，才會直接返回移動盤子的結果，也就是真正的移動盤子，
+其他情況下，會先計算出下一個狀態，然後再遞迴呼叫 `hanoi` 函式，
+將問題切分成三個部分，
+每次都將盤子數量減少 1，直到達到 Base Case。
+
+這樣的實作方式可以清楚地記錄每個盤子是怎麼移動的，
+每次呼叫 `hanoi` 函式都會返回一個包含所有步驟狀態的三維陣列，
+每個步驟的狀態都是一個二維陣列，代表三根柱子上的盤子編號。
+
+以 盤子數量為 3 的河內塔為例，
+來看看結果：
+
+```
+{3 2 1}
+{}
+{}
+
+{3 2}
+{}
+{1}
+
+{3}
+{2}
+{1}
+
+
+{3}
+{2 1}
+{}
+
+{}
+{2 1}
+{3}
+
+{1}
+{2}
+{3}
+
+{1}
+{}
+{3 2}
+
+{}
+{}
+{3 2 1}
+```
+
+
 
 ## 題單
 

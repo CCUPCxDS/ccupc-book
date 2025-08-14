@@ -205,59 +205,103 @@ int main()
 }
 ```
 
-
 因為透過二進位的方式枚舉子集合，
 所以還需要多花一個迴圈才知道當前選了哪些元素，
 因此時間複雜度為 $\mathcal{O}(2^n \times n)$。
 
-但其實枚舉子集合也可以透過遞迴的方式來實現，
-這樣的方式可以讓我們更直觀地理解子集合的生成過程，
-例如我們可以從空集合開始，然後依次將每個元素加入到子集合中，
-或者不加入到子集合中，這樣就可以生成所有的子集合。
-這樣的方式可以用遞迴來實現，時間複雜度為 $\mathcal{O}(2^n)$。
+~~~
 
+我們回頭看一下子集合是如何產生的，假設當前有　$1, 2, 3$ 三個元素，
+$\lbrace\rbrace$ 是空集合，<br>
+考慮 $1$ 這個元素，子集合會是 $\lbrace\rbrace, \lbrace1\rbrace$，<br>
+考慮 $2$ 這個元素，子集合會是 $\lbrace\rbrace, \lbrace1\rbrace, \lbrace2\rbrace, \lbrace1, 2\rbrace$，<br>
+考慮 $3$ 這個元素，子集合會是 $\lbrace\rbrace\rbrace, \lbrace1\rbrace, \lbrace2\rbrace, \lbrace1, 2\rbrace, \lbrace3\rbrace, \lbrace1, 3\rbrace, \lbrace2, 3\rbrace, \lbrace1, 2, 3\rbrace$。<br>
+
+你有發現什麼嗎？其實每次多考慮一個元素時，就是把原本的子集合複製一份，
+然後在每個子集合中加入這個新元素，
+這樣就可以得到新的子集合。
+
+這其實就是數學上怎麼定義子集合的，
+對於每個元素，我們有放在子集合中的選擇，跟不放在子集合中的選擇，
+$S$ 表示元素，$P(S)$ 表示子集合，
+$$
+P(S) = \begin{cases}
+    \lbrace\rbrace & \text{如果 } S = \lbrace\rbrace \\
+    P(S - \lbrace x \rbrace) \cup (P(S - \lbrace x \rbrace) \cup \lbrace x \rbrace) & \text{如果 } x \in S
+\end{cases}
+$$
+
+我們就可以寫出數學上的遞迴定義，
+這樣的定義可以讓我們很方便地實作出子集合枚舉，
+時間複雜度為 $\mathcal{O}(2^n \cdot n)$，
+其中 $n$ 是集合中的元素個數。
+
+以下是透過 C++ 實作的範例程式碼：
+
+```cpp
+vector<vector<int>> generate_subset(vector<int> a)
+{
+    if(empty(a))
+        return {{}};
+    int x = a.back(); // 取出最後一個元素
+    a.pop_back(); // 移除最後一個元素
+    auto subsets_without_x = generate_subset(a); // 生成不包含 x 的子集合
+    auto subsets_with_x = subsets_without_x; // 複製不包含 x 的
+    for(auto& subset : subsets_with_x)
+        subset.push_back(x); // 將 x 加入到每個子集合中
+    vector<vector<int>> all_subsets;
+    for(auto& subset : subsets_without_x)
+        all_subsets.push_back(subset); // 將不包含 x 的子集合加入
+    for(auto& subset : subsets_with_x)
+        all_subsets.push_back(subset); // 將包含 x 的子集合加入
+    return all_subsets; // 返回所有子集合
+}
+```
+
+是不是非常漂亮的純函數？
+這個函式 `generate_subset` 接受一個整數陣列 `a` 作為參數，
+然後返回一個包含所有子集合的二維陣列。
+
+這個函式的遞迴邏輯是：
+1. 如果 `a` 是空的，則返回一個包含空集合的二維陣列。
+2. 否則，取出 `a` 的最後一個元素 `x`，然後從 `a` 中移除它。
+3. 使用 `generate_subset` 函式遞迴地生成不包含 `x` 的子集合。
+4. 複製不包含 `x` 的子集合，然後將 `x` 加入到每個子集合中，生成包含 `x` 的子集合。
+5. 將不包含 `x` 的子集合和包含 `x` 的子集合合併到一個新的二維陣列 `all_subsets` 中。
+
+這樣的實作方式可以讓我們很方便地生成所有的子集合，
+但如果我們今天只是要求出和為 $k$ 的子集合數量，這樣就有點冗贅了，
+複製一分的想法我們可以延伸下去，
+其實就是對於每個元素，分成兩種情況，
+一種是放在子集合中，另一種是不放在子集合中，
+然後對於剩下的元素繼續考慮，
+直到所有元素都被考慮過為止。
+
+我們可以用一個參數來表示當前考慮到的元素和，
+如果已經超過 $k$，就不用再繼續考慮下去了。
+
+### 範例程式碼
 
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
-int k, count = 0;
+int n, k, count = 0;
 
-void dfs(int idx, int n, vector<int>& a, long long sum)
+void generate_subset(vector<int>& a, int idx, int sum)
 {
+    if(sum > k) // 如果當前和已經超過 k，就不需要繼續考慮
+        return;
     if(idx == n) // 已經考慮完所有元素
     {
-        if(sum % k == 0)
+        if(sum == k)
             count++;
         return;
     }
-    // 不選當前元素
-    dfs(idx + 1, n, a, sum);
-    // 選當前元素
-    dfs(idx + 1, n, a, sum + a[idx]);
-}
-int main()
-{
-    int n;
-    cin >> n >> k;
-    vector<int> a(n);
-    for(int i = 0; i < n; ++i)
-        cin >> a[i];
-    dfs(0, n, a, 0); // 從第 0 個元素開始，初始和為 0
-    cout << count << '\n';
-    return 0;
+    generate_subset(a, idx + 1, sum); // 不放當前元素
+    generate_subset(a, idx + 1, sum + a[idx]); // 放當前元素
 }
 ```
 
-因為遞迴的方式會在每次呼叫時都考慮兩種情況，
-所以如果只單純傳一個 `vector<int>` 參數的話，
-會導致每次都要複製整個向量，這樣會浪費很多時間和空間，
-改用傳參考的方式可以避免這個問題，
-這樣就可以在遞迴過程中直接調用同一個 vector，
-而不需要每次都複製一份新的 vector。
-
-這樣的方式可以讓我們更高效地枚舉子集合。
-
-~~~
 
 ## 排列枚舉
 
@@ -265,6 +309,19 @@ int main()
 例如對於集合 $S = \lbrace1, 2, 3\rbrace$，
 我們可以得到以下的排列：
 $1, 2, 3$、$1, 3, 2$、$2, 1, 3$、$2, 3, 1$、$3, 1, 2$、$3, 2, 1$。
+
+我們是不是可以用剛才生成子集合的方式來生成排列呢？
+考慮只有第一個元素的情況，
+只有　$1$ 這個元素，所以排列只有 $1$。
+考慮有兩個元素的情況，$1, 2$，
+排列有 $1, 2$ 和 $2, 1$，
+考慮有三個元素的情況，$1, 2, 3$，
+排列有 $1, 2, 3$、$1, 3, 2$、$2, 1, 3$、$2, 3, 1$、$3, 1, 2$、$3, 2, 1$。
+
+你有發現什麼嗎？其實每次多考慮一個元素時，
+就是將原本的排列複製一份，
+然後在每個排列中每個位置嘗試放置這個新元素，
+這樣就可以得到新的排列。
 
 可以發現，我們對於每個位置考慮所有放置的可能，
 在放置之後，紀錄已經被放過的元素，
@@ -302,6 +359,16 @@ int main()
 ~~~
 
 ~~~admonish note title="範例程式碼" collapsible=true
+
+對於相鄰元素有限制的排列，真的把所有排列列舉出來再一一檢查就有點過頭了，
+我們可以沿用剛才的想法，排列其實就是將元素放在不同的位置，
+所以我們不妨這樣想，當一個元素還沒被考慮過時，
+我們可以嘗試放放看，如果放置後滿足條件，遞迴下去放置剩下的元素，
+如果不滿足條件，就不放置這個元素，然後繼續考慮下一個元素。
+
+這樣的方式可以確保我們只考慮滿足條件的排列，
+時間複雜度為 $\mathcal{O}(n!)$，但是比較起來更高效，
+因為我們不需要列舉所有的排列，只需要列舉滿足條件的排列。
 
 ```cpp
 #include <bits/stdc++.h>
