@@ -10,7 +10,7 @@
 - [陣列與迴圈](courses/loop-array/loop-and-array.md)
 - [指標與字元字串](courses/pointer-string/pointer-and-string.md)
 - [副函式與遞迴應用](courses/function-recursive/main.md)
-- [時間複雜度、排序與二分搜尋法](courses/time_complexity/time-_complexity.md)
+- [時間複雜度、排序與二分搜尋法](courses/time_complexity/time_complexity.md)
 - [標準模板庫 STL]()
 - [暴力搜尋法](courses/enumerate/main.md)
 - [貪婪演算法]()
