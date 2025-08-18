@@ -395,29 +395,42 @@ int G(int x)
 從圖中可以看到，$F(4)$ 的值是由 $F(3)$ 和 $F(2)$ 的值決定的，但我們還不知道 $F(3)$ 的值，
 我們先從 $F(3)$ 繼續分解，
 
-![alt text](fab/image.png)
+<center>
+<img src="fab/image.png" alt="Fibonacci Tree" width="500">
+</center>
+
 
 這樣我們就可以看到，$F(3)$ 的值是由 $F(2)$ 和 $F(1)$ 的值決定的，但我們還不知道 $F(2)$ 的值，所以繼續分解 $F(2)$，
 
-![alt text](fab/image-1.png)
+<center>
+<img src="fab/image-1.png" alt="Fibonacci Tree" width="500">
+</center>
 
 而 $F(2)$ 又可以分解為 $F(1)$ 和 $F(0)$，
 
-![alt text](fab/image-2.png)
+<center>
+<img src="fab/image-2.png" alt="Fibonacci Tree" width="500">
+</center>
 
 因為 $F(1) = 1$ 是已知的，所以我們可以去看 $F(0)$，
 
-![alt text](fab/image-3.png)
+<center>
+<img src="fab/image-3.png" alt="Fibonacci Tree" width="500">
+</center>
 
 $F(0) = 0$ 也是已知的，
 所以我們可以算出 $F(2) = 1$。
 
-![alt text](fab/image-4.png)
+<center>
+<img src="fab/image-4.png" alt="Fibonacci Tree" width="500">
+</center>
 
 接著我們可以回到 $F(3)$，
 因為 $F(2) = 1$，所以可以去看 $F(1)$，
 
-![alt text](fab/image-5.png)
+<center>
+<img src="fab/image-5.png" alt="Fibonacci Tree" width="500">
+</center>
 
 $F(3) = 1 + 1 = 2$。
 
@@ -426,17 +439,23 @@ $F(3) = 1 + 1 = 2$。
 也不是可以直接得知的，
 所以要繼續分解 $F(2)$，
 
-![alt text](fab/image-6.png)
+<center>
+<img src="fab/image-6.png" alt="Fibonacci Tree" width="500">
+</center>
 
 跟剛才算的過程一樣，算出 $F(2) = 2$，
 
-![alt text](fab/image-7.png)
+<center>
+<img src="fab/image-7.png" alt="Fibonacci Tree" width="500">
+</center>
 
 然後回到 $F(4)$，
 因為 $F(3) = 2$ 和 $F(2) = 1$，
 所以我們可以算出 $F(4) = 3$。
 
-![alt text](fab/image-8.png)
+<center>
+<img src="fab/image-8.png" alt="Fibonacci Tree" width="500">
+</center>
 
 這樣的過程就是遞迴的過程，
 每次呼叫函式時，都在解決一個更小的問題，
