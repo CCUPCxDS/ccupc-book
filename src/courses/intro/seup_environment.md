@@ -113,6 +113,7 @@ int main()
     return 0;
 }
 ```
+## 並且記得存檔
 8. 接著按下 `Ctrl + ‵`，開啟終端機，然後輸入以下指令來編譯程式：
 ```bash
 g++ main.cpp -o main
