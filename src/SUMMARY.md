@@ -32,13 +32,13 @@
     - [樹狀數組]()
 - [賽局理論]()
 - [網路流*]()
-- [字串演算法*]()
-    - [雜湊與 KMP]()
-    - [Z Value]()
+- [字串演算法*](courses/string/intro.md)
+    - [字串匹配](courses/string/matching.md)
     - [Trie]()
     - [Manacher 演算法]()
     - [Suffix Array]()
 - [計算幾何*]()
+    - [凸包技巧]()
 - [進階動態規劃*]()
 
 ---
