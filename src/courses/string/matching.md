@@ -95,7 +95,7 @@ $\text{prefHash}(S[2]) = B^1 \times 1 + B^0 \times 2$<br>
 $\text{prefHash}(S[3]) = B^2 \times 1 + B^1 \times 2 + B^0 \times 4$<br>
 $\text{prefHash}(S[4]) = B^3 \times 1 + B^2 \times 2 + B^1 \times 4 + B^0 \times 1$
 
-![alt text](image.png)
+![alt text](matching_assets/image.png)
 在圖形上來看會呈現一個三角形，所以被消去的部份要往上放大。
 
 子字串 $abd$ 的 $\text{Hash}(S[1:3])$ 就是 $\text{prefHash}(S[3]) - \text{prefHash}(S[0]) \times B^{3-1+1}$<br>
@@ -210,43 +210,42 @@ $\text{prefHash}(S[4]) = B^3 \times 1 + B^2 \times 2 + B^1 \times 4 + B^0 \times
 例子 aabxaabxcaabxaabxay
 
 跟 KMP 一樣，第一格沒有意義
-![alt text](image-1.png)
+![alt text](matching_assets/image-1.png)
 
 前面幾個很快可以看出來，我們先快轉
-![alt text](image-2.png)
+![alt text](matching_assets/image-2.png)
 
 到這裡時，我們會有長度為四的匹配，產生的匹配區間我們稱為 Z box，
-![alt text](image-3.png)
+![alt text](matching_assets/image-3.png)
 
 Z box 內的資訊可以由字串開頭得知，直接照抄
-![alt text](image-4.png)
+![alt text](matching_assets/image-4.png)
 
 超出 Z box 了，重新比較，直到發現新的 Z box，
-![alt text](image-5.png)
+![alt text](matching_assets/image-5.png)
 
 照抄下來，發現這個位置前綴中填四，但實際上還可以往後延伸，
 所以當 z value 的值，以及當前位置和 Z box 的邊界比較下貼齊的話，我們還要嘗試往後看看，
 因為 Z box 後的世界我們還沒檢查到，所以可能還有更長的結果，只是一開始 box 左界開始的子字串無法延伸到那。
-![alt text](image-6.png)
+![alt text](matching_assets/image-6.png)
 
 更新 Z box
-![alt text](image-7.png)
+![alt text](matching_assets/image-7.png)
 
 照抄下來，好像又不對勁
-![alt text](image-8.png)
+![alt text](matching_assets/image-8.png)
 
 因為當前位置加上前綴對應位置中的 z value 值已經超出字串長度，我們應該從頭開始比較，而非繼續延伸。
-![alt text](image-9.png)
+![alt text](matching_assets/image-9.png)
 
 完成 z value 的計算。
-![alt text](image-10.png)
+![alt text](matching_assets/image-10.png)
 
 因為 z box 只會不斷往右移動，自然也沒有不斷來回從頭比較的必要，
 所以 z algorithm 也是線性的。
 
 ## 題單
 
-- [CSES Word Combinations](https://cses.fi/problemset/task/1731/)
 - [CSES String Matching](https://cses.fi/problemset/task/1753)
 - [CSES String Functions](https://cses.fi/problemset/task/2107)
 - [CSES Finding Borders](https://cses.fi/problemset/task/1732)

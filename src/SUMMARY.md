@@ -34,7 +34,7 @@
 - [網路流*]()
 - [字串演算法*](courses/string/intro.md)
     - [字串匹配](courses/string/matching.md)
-    - [Trie]()
+    - [Trie](courses/string/trie.md)
     - [Manacher 演算法]()
     - [Suffix Array]()
 - [計算幾何*]()
