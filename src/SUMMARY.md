@@ -35,7 +35,7 @@
 - [字串演算法*](courses/string/intro.md)
     - [字串匹配](courses/string/matching.md)
     - [Trie](courses/string/trie.md)
-    - [Manacher 演算法]()
+    - [Manacher 演算法](courses/string/manacher.md)
     - [Suffix Array]()
 - [計算幾何*]()
     - [凸包技巧]()
