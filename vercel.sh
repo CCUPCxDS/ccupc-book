@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 下載並解壓 mdbook
-curl -Lo mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.4.48/mdbook-v0.4.48-x86_64-unknown-linux-musl.tar.gz
+curl -Lo mdbook.tar.gz https://github.com/rust-lang/mdBook/releases/download/v0.4.51/mdbook-v0.4.51-x86_64-unknown-linux-musl.tar.gz
 tar xvzf mdbook.tar.gz
 
 # 下載並解壓 katex plugin
