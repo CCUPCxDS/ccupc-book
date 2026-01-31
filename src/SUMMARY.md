@@ -44,5 +44,3 @@
 ---
 
 - [待完成清單](in_progress.md)
-- [特別感謝](thanks.md)
-

@@ -3,6 +3,11 @@
 CCUPC Book 使用 Rust 團隊的 MDBook 作為網站的內容管理系統，加上 [MDBook Admonish](https://github.com/tommilligan/mdbook-admonish) 來美化網站布局、[MDBbook Katex](https://github.com/lzanini/mdbook-katex) 來改善數學式渲染，並使用 Vercel 作為靜態網站的部署平台。
 整合歷屆中正競程所上過的課程，整合一般課程、寒暑假訓練營、競賽等課程的內容，方便學員以及講師們複習以及準備課程，同時也補充因為上課時間或篇幅限制沒有說明到的證明等相關知識。
 
+## Contributors
+
+- Administrator: D1stance
+- Co-Authors: 帝雉 (連子賢)
+
 ## 使用說明
 
 ### 服用說明
